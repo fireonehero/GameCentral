@@ -1,4 +1,5 @@
 import random
+import os
 
 class WordGuesser:
 
@@ -100,25 +101,33 @@ class WordGuesser:
         if not self.win:
             print("You lost! The word was:", word)
 
+    def post_game_menu(self):
+        while True:
+            print("=====================================")
+            print("===   WHAT WOULD YOU LIKE TO DO   ===")
+            print("=====================================")
+            print("[1] Play Again")
+            print("[2] Return to Game Central Menu")
+            print("[0] Exit")
+            print("===================================")
+            choice = input("Enter your choice (0-2): ").strip()
+
+            if choice == "1":
+                return "play again"
+            elif choice == "2":
+                return "menu"
+            elif choice == "0":
+                exit()
+            else:
+                print("Invalid choice. Please select between 0 and 2.")
+
+    def play_game(self):
+        self.reset()
+        os.system('cls' if os.name == 'nt' else 'clear')
+        self.play()
+        decision = self.post_game_menu()
+        return decision
+
 if __name__ == "__main__":
     game = WordGuesser()
-    while True:
-        game.play()
-        print("=====================================")
-        print("===   WHAT WOULD YOU LIKE TO DO   ===")
-        print("=====================================")
-        print("[1] Play Again")
-        print("[2] Return to Game Central Menu")
-        print("[0] Exit")
-        print("===================================")
-        choice = input("Enter your choice (0-2): ").strip()
-
-        if choice == "1":
-            game.reset()
-        elif choice == "2":
-            # You can add the logic to return to the main menu here.
-            pass
-        elif choice == "0":
-            break
-        else:
-            print("Invalid choice. Please select between 0 and 2.")
+    game.play_game()
