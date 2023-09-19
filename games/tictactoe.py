@@ -1,4 +1,4 @@
-import random
+import os
 
 class TicTacToe:
     def __init__(self):
@@ -91,8 +91,10 @@ class TicTacToe:
         print("[2] Player vs Computer")
         choice = input("Enter 1 or 2: ").strip()
         if choice == "1":
+            os.system('cls' if os.name == 'nt' else 'clear')
             return 'PvP'
         elif choice == "2":
+            os.system('cls' if os.name == 'nt' else 'clear')
             return 'PvC'
 
     def player_vs_player(self):

@@ -1,5 +1,4 @@
 import random
-from math import sqrt
 import os
 
 class NumberGuesser:
@@ -17,16 +16,17 @@ class NumberGuesser:
 
     def play(self):
         print("Welcome to the Number Guesser!")
-        low_number = self.get_number_input("Please enter the lowest number it can be: ")
-        high_number = self.get_number_input("Please enter the highest number it can be: ")
-
-        while low_number == high_number:
-            print("The two numbers cannot be the same!")
+        while True:
             low_number = self.get_number_input("Please enter the lowest number it can be: ")
             high_number = self.get_number_input("Please enter the highest number it can be: ")
 
+            if low_number < high_number:
+                break
+            else:
+                print("The highest number must be greater than the lowest number. Please try again.")
+
         secret_number = random.randint(low_number, high_number)
-        MAX_GUESSES = int((high_number - low_number)**(1/3) + .5)
+        MAX_GUESSES = int(abs(high_number - low_number)**(1/3) + 0.5)
 
         for i in range(MAX_GUESSES):
             print(f"You have {MAX_GUESSES - i} guesses left.")

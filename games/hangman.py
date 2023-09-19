@@ -14,6 +14,7 @@ class WordGuesser:
     "pneumonoultramicroscopicsilicovolcanoconiosis",
     "supercalifragilisticexpialidocious",
     "hippopotomonstrosesquippedaliophobia",
+    "honorificabilitudinitatibus",
     "uncopyrightable",
     "subdermatoglyphic",
     "hydropneumatics",
@@ -76,30 +77,37 @@ class WordGuesser:
         
 
     def play(self):
-        word = random.choice(self.word_list)
-        print(self.generate_display(word))
-        
-        while not self.win and self.guesses_left > 0:
-            guess = input("Guess a letter: ")
+        chosen_word = random.choice(self.word_list)
+        while self.guesses_left > 0:
+            print("Word: ", self.generate_display(chosen_word))
+            print("Guesses left:", self.guesses_left)
+            print("Guessed Letters: ", ", ".join(self.guessed_letters))
+            letter = input("Enter your guess: ").strip().lower()
             
-            while len(guess) != 1 or not guess.isalpha():
-                print("Error: Please input only one letter.")
-                guess = input("Guess a letter: ")
-
-            if guess not in self.guessed_letters:
-                if guess not in word:
-                    self.guesses_left -= 1
-                self.guessed_letters.append(guess.lower())
-
-            print(self.generate_display(word))
-            print(f"Guesses Left: {self.guesses_left} | " + "Guessed Letters:", ', '.join(self.guessed_letters))
-
-            if "_" not in self.generate_display(word):
-                self.win = True
-                print("You Won!")
+            if letter in self.guessed_letters:
+                print("You've already guessed that letter!")
+                continue
                 
-        if not self.win:
-            print("You lost! The word was:", word)
+            self.guessed_letters.append(letter)
+            
+            if letter in chosen_word:
+                print(f"Good job! {letter} is in the word.")
+            else:
+                print(f"Sorry, {letter} is not in the word.")
+                self.guesses_left -= 1
+            
+            if all(char in self.guessed_letters or char == " " for char in chosen_word):
+                self.win = True
+                break
+                
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
+        if self.win:
+            print(f"Congratulations! You've guessed the word: {chosen_word}.")
+        else:
+            print(f"You've run out of guesses! The word was: {chosen_word}.")
+
+    
 
     def post_game_menu(self):
         while True:

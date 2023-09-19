@@ -4,7 +4,10 @@ import random
 from games.hangman import WordGuesser
 from games.higherlower import NumberGuesser
 from games.tictactoe import TicTacToe
+from games.blackjack import BlackJack
+from games.rps import RockPaperScissors
 
+os.system('cls' if os.name == 'nt' else 'clear')
 print("""
   ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▄████▄  ▓█████  ███▄    █ ▄▄▄█████▓ ██▀███   ▄▄▄       ██▓    
  ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▀ ▀█  ▓█   ▀  ██ ▀█   █ ▓  ██▒ ▓▒▓██ ▒ ██▒▒████▄    ▓██▒    
@@ -32,7 +35,9 @@ def display_menu():
     print("[1] Hangman")
     print("[2] TicTacToe")
     print("[3] HigherLower")
-    print("[4] Surprise Me!")
+    print("[4] BlackJack")
+    print("[5] Rock Paper Scissors")
+    print("[6] Suprise Me!")
     print("[0] Exit")
     print("===================================")
 
@@ -63,18 +68,41 @@ def play_higherlower(higher_lower_game):
         elif decision == "play again":
             continue
 
+def play_blackjack(blackjack_game):
+    print("Starting BlackJack...\n")
+    while True:
+        decision = blackjack_game.play_game()
+        if decision == "menu":
+            break
+        elif decision == "play again":
+            continue
+
+def play_rock_paper_scissors(rockpaperscissors_game):
+    print("Starting Rock Paper Scissors...\n")
+    while True:
+        decision = rockpaperscissors_game.play_game()
+        if decision == "menu":
+            break
+        elif decision == "play again":
+            continue
+
+
 def main():
     hangman_game = WordGuesser()
     higher_lower_game = NumberGuesser()
     tic_tac_toe_game = TicTacToe()
+    blackjack_game = BlackJack()
+    rockpaperscissors_game = RockPaperScissors()
 
     games = [(play_hangman, hangman_game), 
              (play_tictactoe, tic_tac_toe_game), 
-             (play_higherlower, higher_lower_game)]
+             (play_higherlower, higher_lower_game),
+             (play_blackjack, blackjack_game),
+             (play_rock_paper_scissors, rockpaperscissors_game)]
 
     while True:
         display_menu()
-        choice = input("Enter your choice (0-4): ").strip()
+        choice = input("Enter your choice (0-6): ").strip()
         
         if choice == "1":
             play_hangman(hangman_game)
@@ -83,6 +111,10 @@ def main():
         elif choice == "3":
             play_higherlower(higher_lower_game)
         elif choice == "4":
+            play_blackjack(blackjack_game)
+        elif choice == "5":
+            play_rock_paper_scissors(rockpaperscissors_game)
+        elif choice == "6":
             random_game_func, random_game_instance = random.choice(games)
             random_game_func(random_game_instance)
         elif choice == "0":
