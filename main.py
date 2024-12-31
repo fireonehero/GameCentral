@@ -6,6 +6,7 @@ from games.higherlower import NumberGuesser
 from games.tictactoe import TicTacToe
 from games.blackjack import BlackJack
 from games.rps import RockPaperScissors
+from games.minesweeper import minesweeper as minesweeper
 
 os.system('cls' if os.name == 'nt' else 'clear')
 print("""
@@ -37,7 +38,8 @@ def display_menu():
     print("[3] HigherLower")
     print("[4] BlackJack")
     print("[5] Rock Paper Scissors")
-    print("[6] Suprise Me!")
+    print("[6] Minesweeper")
+    print("[7] Suprise Me!")
     print("[0] Exit")
     print("===================================")
 
@@ -86,7 +88,6 @@ def play_rock_paper_scissors(rockpaperscissors_game):
         elif decision == "play again":
             continue
 
-
 def main():
     hangman_game = WordGuesser()
     higher_lower_game = NumberGuesser()
@@ -102,7 +103,7 @@ def main():
 
     while True:
         display_menu()
-        choice = input("Enter your choice (0-6): ").strip()
+        choice = input("Enter your choice (0-7): ").strip()
         
         if choice == "1":
             play_hangman(hangman_game)
@@ -115,6 +116,8 @@ def main():
         elif choice == "5":
             play_rock_paper_scissors(rockpaperscissors_game)
         elif choice == "6":
+            minesweeper.play_game()
+        elif choice == "7":
             random_game_func, random_game_instance = random.choice(games)
             random_game_func(random_game_instance)
         elif choice == "0":
