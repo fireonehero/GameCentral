@@ -7,6 +7,7 @@ from games.tictactoe import TicTacToe
 from games.blackjack import BlackJack
 from games.rps import RockPaperScissors
 from games.minesweeper import minesweeper as minesweeper
+from games.top_down_shooter import top_down_shooter as tds
 
 os.system('cls' if os.name == 'nt' else 'clear')
 print("""
@@ -39,7 +40,8 @@ def display_menu():
     print("[4] BlackJack")
     print("[5] Rock Paper Scissors")
     print("[6] Minesweeper")
-    print("[7] Suprise Me!")
+    print("[7] Top Down Shooter")
+    print("[8] Suprise me")
     print("[0] Exit")
     print("===================================")
 
@@ -103,7 +105,7 @@ def main():
 
     while True:
         display_menu()
-        choice = input("Enter your choice (0-7): ").strip()
+        choice = input("Enter your choice (0-8): ").strip()
         
         if choice == "1":
             play_hangman(hangman_game)
@@ -118,6 +120,10 @@ def main():
         elif choice == "6":
             minesweeper.play_game()
         elif choice == "7":
+            print("Fuck You")
+            time.sleep(2)
+            tds.play_top_down_shooter()
+        elif choice == "8":
             random_game_func, random_game_instance = random.choice(games)
             random_game_func(random_game_instance)
         elif choice == "0":

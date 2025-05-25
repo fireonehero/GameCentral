@@ -1,0 +1,9 @@
+import math
+
+gun_data = {
+    'M1911':          {'bullet_speed': math.sqrt(25.3)*2, 'damage': 45, 'projectiles': 1, 'bullet_inaccuracy': 5, 'firing_delay': 0.25, 'ammo_capacity': 7, 'reload_time': 0.75, 'penetration': 0, 'gunshot_sound': "games\\top_down_shooter\\assets\sounds\handgun\handgun_shot.wav", 'reload_sound': "games\\top_down_shooter\\assets\sounds\handgun\handgun_reload.wav"},
+    'MP5':            {'bullet_speed': math.sqrt(40.0)*2, 'damage': 35,  'projectiles': 1, 'bullet_inaccuracy': 7.5, 'firing_delay': 0.017, 'ammo_capacity': 30, 'reload_time': 0.85, 'penetration': 0, 'gunshot_sound': "games\\top_down_shooter\\assets\sounds\smg\smg_shot.wav", 'reload_sound': "games\\top_down_shooter\\assets\sounds\smg\smg_reload.wav"},
+    'M4A1':           {'bullet_speed': math.sqrt(88.0)*2, 'damage': 65,  'projectiles': 1, 'bullet_inaccuracy': 8, 'firing_delay': 0.077, 'ammo_capacity': 30, 'reload_time': 1.85, 'penetration': 0, 'gunshot_sound': "games\\top_down_shooter\\assets\sounds\\assault_rifle\\ar_shot.wav", 'reload_sound': "games\\top_down_shooter\\assets\sounds\\assault_rifle\\ar_reload.wav"},
+    'Remington 870':  {'bullet_speed': math.sqrt(40.8)*2, 'damage': 25,  'projectiles': 12, 'bullet_inaccuracy': 10, 'firing_delay': 1.3, 'ammo_capacity': 5, 'reload_time': 0.91, 'penetration': 0, 'gunshot_sound': "games\\top_down_shooter\\assets\sounds\shotgun\shotgun_shot.wav", 'reload_sound': "games\\top_down_shooter\\assets\sounds\shotgun\shotgun_reload.wav"},
+    'AWP':            {'bullet_speed': math.sqrt(94.0)*2, 'damage': 100,  'projectiles': 1, 'bullet_inaccuracy': 1, 'firing_delay': 1.7, 'ammo_capacity': 5, 'reload_time': 2.35, 'penetration': 2, 'gunshot_sound': "games\\top_down_shooter\\assets\sounds\sniper_rifle\sniper_shot.wav", 'reload_sound': "games\\top_down_shooter\\assets\sounds\sniper_rifle\sniper_reload.wav"}
+}
