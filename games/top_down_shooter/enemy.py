@@ -16,7 +16,7 @@ def spawn_enemies(count, width, height):
             "health": 100,
             "path": [(100, 100), (700, 100)],
             "path_index": 0,
-            "speed": settings.PLAYER_SPEED,
+            "speed": settings.ENEMY_SPEED,
             "attack_speed": 2000,  # milliseconds
             "last_attack_time": 0 
         })
@@ -25,7 +25,7 @@ def spawn_enemies(count, width, height):
 def spawn_single_enemy(width, height):
     x = random.randint(-width, width)
     y = random.randint(-height, height)
-    return {'x': x, 'y': y, 'radius': 25, 'health': 100, 'path': [], 'path_index': 0, 'speed': settings.PLAYER_SPEED, "attack_speed": 2000, "last_attack_time": 0}
+    return {'x': x, 'y': y, 'radius': 25, 'health': 100, 'path': [], 'path_index': 0, 'speed': settings.ENEMY_SPEED, "attack_speed": 2000, "last_attack_time": 0}
 
 def move_enemy_along_path(enemy):
     if not enemy["path"]:
@@ -87,6 +87,5 @@ def handle_player_overlap(player_rect, enemies):
         enemy_rect = pygame.Rect(enemy['x'] - enemy['radius'], enemy['y'] - enemy['radius'], enemy['radius'] * 2, enemy['radius'] * 2)
         if enemy_rect.colliderect(player_rect):
             if now - enemy["last_attack_time"] >= enemy["attack_speed"]:
-                settings.PLAYER_HEALTH -= 1
+                settings.PLAYER_HEALTH -= random.randint(10, 25)
                 enemy["last_attack_time"] = now
-                print(f"Playe hit current health: {settings.PLAYER_HEALTH}")

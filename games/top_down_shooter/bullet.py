@@ -24,6 +24,9 @@ def update_bullets(bullets, enemies, walls):
             if bullet_rect.colliderect(enemy_rect):
                 sounds.hitmarker.play()
                 enemy['health'] -= settings.DAMAGE
+                settings.SCORE += 5
+                if enemy['health'] <= 0:
+                    settings.SCORE += 25
                 bullet[4] -= 1
                 if bullet[4] <= 0:
                     bullets.remove(bullet)

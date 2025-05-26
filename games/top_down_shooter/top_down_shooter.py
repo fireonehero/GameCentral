@@ -7,7 +7,7 @@ import games.top_down_shooter.squares as squares
 from games.top_down_shooter.player import draw_player, get_angle_to_mouse
 from games.top_down_shooter.enemy import spawn_enemies, draw_enemies, move_enemy_towards_player, spawn_single_enemy, handle_player_overlap
 from games.top_down_shooter.bullet import update_bullets, draw_bullets
-from games.top_down_shooter.ui import draw_ammo_info, draw_game_over_text, draw_health_text
+from games.top_down_shooter.ui import draw_ammo_info, draw_game_over_text, draw_health_text, draw_score_text
 
 def play_top_down_shooter():
     pygame.init()
@@ -19,10 +19,11 @@ def play_top_down_shooter():
     clock = pygame.time.Clock()
 
     # Fonts
-    font_path = "games\\top_down_shooter\\assets/fonts"
+    font_path = "games/top_down_shooter/assets/fonts"
     gun_font = pygame.font.Font(f"{font_path}/Hardcore Imperial.ttf", 30)
     game_over_font = pygame.font.Font(f"{font_path}/Zombified.ttf", 72)
     health_font = pygame.font.Font(f"{font_path}/Hardcore Imperial.ttf", 30)
+    score_font = pygame.font.Font(f"{font_path}/Hardcore Imperial.ttf", 30)
 
     # Game state
     player_pos = [WIDTH // 2, HEIGHT // 2]
@@ -31,13 +32,15 @@ def play_top_down_shooter():
     player_rect = pygame.Rect(0, 0, settings.PLAYER_RADIUS * 2, settings.PLAYER_RADIUS * 2)
 
     bullets = []
-    enemies = spawn_enemies(5, WIDTH, HEIGHT)
+    enemies = []
 
     mouse_held = False
     last_shot_time = 0
 
     next_enemy_spawn_delay = random.randint(*settings.ENEMY_SPAWN_RATE)
     enemy_spawn_timer = 0
+
+    guns.new_equip('M1911')
 
     running = True
     while running:
@@ -73,14 +76,16 @@ def play_top_down_shooter():
             player_pos[1] += dy
 
         # Handle game elements
-        squares.handle_gun_square_overlap(player_rect)
+        #squares.handle_gun_square_overlap(player_rect)
+        squares.handle_random_box_overlap(player_rect)
 
         if settings.PLAYER_HEALTH > 0:
             draw_player(screen, (WIDTH // 2, HEIGHT // 2), get_angle_to_mouse(player_pos))
             handle_player_overlap(player_rect, enemies)
 
-        squares.draw_gun_squares(camera_x, camera_y, screen)
+        #squares.draw_gun_squares(camera_x, camera_y, screen)
         squares.draw_wall_squares(camera_x, camera_y, screen)
+        squares.draw_random_box_square(camera_x, camera_y, screen)
 
         # Events
         for event in pygame.event.get():
@@ -113,7 +118,7 @@ def play_top_down_shooter():
             reload_start = now
             settings.RELOAD_SOUND = guns.gun_data[settings.EQUIPPED]["reload_sound"]
             sounds.update_reload_sound()
-            if settings.EQUIPPED == "Remington 870":
+            if settings.EQUIPPED == "Remington 870" or settings.EQUIPPED == "SPAS-12" or settings.EQUIPPED == "M1014" or settings.EQUIPPED == "KSG" or settings.EQUIPPED == "Double Barrel":
                 bullets_needed = settings.AMMO_CAPACITY - settings.AMMO_COUNT
                 settings.RELOAD_TIME = guns.gun_data["Remington 870"]["reload_time"] * bullets_needed
                 sounds.reload.play(loops=bullets_needed - 1)
@@ -148,6 +153,7 @@ def play_top_down_shooter():
         draw_enemies(screen, enemies, camera_x, camera_y)
         draw_ammo_info(screen, gun_font, WIDTH)
         draw_health_text(screen, health_font)
+        draw_score_text(screen, score_font)
 
         if settings.PLAYER_HEALTH <= 0:
             draw_game_over_text(screen, game_over_font)
