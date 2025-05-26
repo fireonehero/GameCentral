@@ -93,6 +93,19 @@ def play_top_down_shooter():
             elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 mouse_held = False
 
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                settings.PLAYER_SPEED /= 2
+                if settings.EQUIPPED != "none":
+                    settings.BULLET_INACCURACY /= 2
+                else:
+                    print('No gun selected')
+            elif event.type == pygame.MOUSEBUTTONUP and event.button == 3:
+                settings.PLAYER_SPEED *= 2
+                if settings.EQUIPPED != "none":
+                    settings.BULLET_INACCURACY *= 2
+                else:
+                    print('No gun selected')
+
         # Reloading
         now = pygame.time.get_ticks()
         if keys[pygame.K_r] and not settings.IS_RELOADING and settings.AMMO_COUNT < settings.AMMO_CAPACITY and settings.PLAYER_HEALTH > 0:
